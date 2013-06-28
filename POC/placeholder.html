@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<script src="easyXDM.min.js"></script>
+		<script type="text/javascript">
+		window.onload = function(){	
+	        var socket = new easyXDM.Socket({
+			    onMessage:function(message, origin) {
+		            if(typeof(Storage)!=="undefined"){
+		            	var temp = origin=="http://domain1.com"?
+		            				localStorage.setItem('myData', message):
+		            				origin=="http://domain2.com"?
+		            				socket.postMessage(localStorage.getItem('myData')):
+		            				'';
+					}else{
+					  // Cookie?
+					  alert('no localStorage');
+					};
+		        }
+		    });
+		};
+
+	    window.onunload = function(){
+            if (socket) {
+                socket.destroy();
+            };
+        };
+	</script>
+	</head>
+<body>
+</body>
+</html>

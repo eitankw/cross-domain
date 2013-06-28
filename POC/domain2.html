@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script src="easyXDM.min.js"></script>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				var h = document.getElementById('header');
+				h.textContent = 'Location: ' + window.location.origin;
+
+				var socket = new easyXDM.Socket({
+			        remote: "http://placeholder.com/cross-origin/placeholder.html",
+			        onMessage:function(message, origin) {
+			        	var i = document.getElementById('input1');
+			    		i.value = message;
+			        }
+			    });
+
+				var b = document.getElementById('getDataBtn');
+				b.onclick = (function(){
+					socket.postMessage('wassup');
+				});
+			};
+
+			window.onunload = function(){
+	            if (socket) {
+	                socket.destroy();
+	            }
+	        };
+		
+		</script>
+	</head>
+	<body>
+		<h1 id='header'></h1>
+		<div>
+			<input id='getDataBtn' type='button' value='Get Data'></input>
+			<input id='input1' type='text' placeholder='insert something'></input>
+		</div>
+	</body>
+</html>
