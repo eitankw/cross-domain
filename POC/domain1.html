@@ -1,6 +1,28 @@
 <html>
 	<head>
 		<script src="easyXDM.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var h = document.getElementById('header');
+				h.textContent = 'Location: ' + window.location.origin;
+
+				var socket = new easyXDM.Socket({
+			        remote: "http://placeholder.com/cross-origin/placeholder.html",
+			        onMessage: function(message, origin) {}
+			    });
+
+				var b = document.getElementById('submitBtn');
+				b.onclick = (function(){
+					var i = document.getElementById('input1');
+					socket.postMessage(i.value);
+				});	
+			};
+
+			window.onunload = function(){
+	            if (socket) {socket.destroy();}
+	        };
+			
+		</script>
 	</head>
 	<body>
 		<h1 id='header'></h1>
@@ -8,34 +30,6 @@
 			<input id='input1' type='text' placeholder='insert something'></input>
 			<input id='submitBtn' type='button' value='Save'></input>
 			<a href='http://domain2.com/cross-origin/domain2.html'>Switch Domain</a>
-			
-			<script type="text/javascript">
-				
-				window.onload = function(){
-					var h = document.getElementById('header');
-					h.textContent = 'Location: ' + window.location.origin;
-
-					var socket = new easyXDM.Socket({
-				        remote: "http://placeholder.com/cross-origin/placeholder.html",
-				        onMessage: function(message, origin) {}
-				    });
-
-					var b = document.getElementById('submitBtn');
-					b.onclick = (function(){
-						var i = document.getElementById('input1');
-						socket.postMessage(i.value);
-					});	
-				};
-
-	            window.onunload = function(){
-	                if (socket) {
-	                    socket.destroy();
-	                }
-	            };
-				
-			</script>
-
 		</div>
-		<!-- <iframe frameborder='0' style='position: absolute; top: -2000px;' name='frame1' src='http://placeholder.com/content3/placeholder.html'></iframe> -->
 	</body>
 </html>
