@@ -19,11 +19,7 @@
 		    });
 		};
 
-	    window.onunload = function(){
-            if (socket) {
-                socket.destroy();
-            };
-        };
+	    window.onunload = function(){if (socket) {socket.destroy();}};
 	</script>
 	</head>
 <body>
